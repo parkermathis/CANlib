@@ -1,11 +1,10 @@
-extern-crate libc;
+extern crate libc;
 
 use canlib_sys::*;
 use libc::{c_int, c_uint, c_long, c_ulong, c_void};
 
 mod canlib_sys;
 use canlib_sys::*;
-
 
 pub type CanHandle = i32;
 
@@ -124,6 +123,63 @@ pub enum CanStatus {
     ErrIoNoValidConfig  = -48,
     ErrReserved         = -49,
 }
+
+fn i32_to_can_status(num: i32) -> CanStatus {
+	match num {
+		0 => CanStatus::CanOk,
+		-1 => CanStatus::ErrParam,
+		-2 => CanStatus::ErrNoMsg,       
+		-3 => CanStatus::ErrNotFound,      
+		-4 => CanStatus::ErrNoMem,          
+		-5 => CanStatus::ErrNoChannels,        
+		-6 => CanStatus::ErrInterrupted,   
+		-7 => CanStatus::ErrTimeout,          
+		-8 => CanStatus::ErrNotInitialized,   
+		-9 => CanStatus::ErrNoHandles,        
+		-10 => CanStatus::ErrInvHandle,        
+		-11 => CanStatus::ErrIniFile,          
+		-12 => CanStatus::ErrDriver,           
+		-13 => CanStatus::ErrTxBufOfl,       
+		-14 => CanStatus::ErrReserved1,        
+		-15 => CanStatus::ErrHardware,       
+		-16 => CanStatus::ErrDynaLoad,        
+		-17 => CanStatus::ErrDynaLib,         
+		-18 => CanStatus::ErrDynaInit,        
+		-19 => CanStatus::ErrNotSupported,     
+		-20 => CanStatus::ErrReserved5,         
+		-21 => CanStatus::ErrReserved6,      
+		-22 => CanStatus::ErrReserved2,      
+		-23 => CanStatus::ErrDriverLoad,      
+		-24 => CanStatus::ErrDriverFailed,    
+		-25 => CanStatus::ErrNoConfigMgr,    
+		-26 => CanStatus::ErrNoCard,          
+		-27 => CanStatus::ErrReserved7,     
+		-28 => CanStatus::ErrRegistry,      
+		-29 => CanStatus::ErrLicense,       
+		-30 => CanStatus::ErrInternal,       
+		-31 => CanStatus::ErrNoAccess,          
+		-32 => CanStatus::ErrNotImplemented,   
+		-33 => CanStatus::ErrDeviceFile,       
+		-34 => CanStatus::ErrHostFile,        
+		-35 => CanStatus::ErrDisk,           
+		-36 => CanStatus::ErrCrc,              
+		-37 => CanStatus::ErrConfig,         
+		-38 => CanStatus::ErrMemoFail,       
+		-39 => CanStatus::ErrScriptFail,   
+		-40 => CanStatus::ErrScriptWrongVersion,
+		-41 => CanStatus::ErrScriptTxeContainerVersion,  
+		-42 => CanStatus::ErrScriptTxeContainerFormat,  
+		-43 => CanStatus::ErrBufferTooSmall, 
+		-44 => CanStatus::ErrIoWrongPinType, 
+		-45 => CanStatus::ErrIoNotConfirmed,  
+		-46 => CanStatus::ErrIoConfigChanged, 
+		-47 => CanStatus::ErrIoPending,       
+		-48 => CanStatus::ErrIoNoValidConfig,  
+		-49 => CanStatus::ErrReserved,       
+		_   => unreachable!(), // Technically unreachable (?)
+	}
+}
+
 
 pub fn can_initialize_library() {
     unsafe {
