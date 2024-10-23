@@ -1,5 +1,6 @@
 # CANlib
 
+** Do not expect quality code out of this repo. I am not very good at rust**
 a port of the Kvaser CANlib to rust. Based on the work done in [this repo](https://git.grepit.se/encrypted-can/lib). 
 
 ## Requirements
